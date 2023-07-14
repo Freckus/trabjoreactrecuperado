@@ -14,6 +14,8 @@ import { Asientos } from "./Sit";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+
+
 export function Busqueda() {
   return (
     <>
@@ -54,7 +56,29 @@ export function Busqueda() {
   );
 }
 export function Todos(){
-    return(
-        <br></br>
-    )
+  return (
+    <>
+      <Header />
+      <br></br>
+      <NavBar />
+      <br></br>
+      <Container
+        className="text-bg-secondary p-3 rounded"
+        style={{ opacity: "90%" }}
+      >
+        <Row>
+          <Col sm={12}>
+            <SubTittle />
+            <SeleDest/>
+
+              <Button variant="primary" type="submit">
+                Buscar
+              </Button>
+              
+  
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
 }

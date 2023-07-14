@@ -6,17 +6,17 @@ import { Header } from './Navigation';
 import { NavBar } from './Navbar';
 import { BodyForm } from './Body';
 import {Nosotros} from './Nosotros'
-import { Busqueda } from './Busqueda';
+import { Busqueda,Todos } from './Busqueda';
 
 function App() {
   return (
     <div className="App">
-        <h1>Mi prueba de navegacion</h1>
+        <h1></h1>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path='about' element={<NosotrosN/>}/>
           <Route path='Busqueda' element={<BusquedaN/>}/>
-          <></>
+          <Route path='Vertodo' element={<Vertodo/>}/>
         </Routes>
       </div>
     );}
@@ -51,7 +51,7 @@ function BusquedaN(){
 function Vertodo(){
   return(
     <>
-    
+      <Todos/>
     </>
   );
 }

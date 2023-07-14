@@ -11,7 +11,7 @@ import {TittleName} from "./Values"
 
 export function NavBar() {
     return (
-        <>
+        <>  
             <Container>
                 <Row>
                     <Navbar expand="lg" className="bg-body-tertiary rounded">
@@ -23,6 +23,7 @@ export function NavBar() {
                                     <Nav.Link href="/">Compra</Nav.Link>
                                     <Nav.Link href="/about">Nostros</Nav.Link>
                                     <Nav.Link href="/Busqueda">Busqueda</Nav.Link>
+                                    <Nav.Link href="/Vertodo">Vertodo</Nav.Link>
                                 </Nav>
                             </Navbar.Collapse>
                         </Container>
