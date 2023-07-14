@@ -17,7 +17,7 @@ export function Header() {
                     <Logo />
                 </Col>
                 <Col sm={10} className='text-bg-primary rounded ' style={{ backgroundColor: 'grey', opacity: '89%' }}>
-                    <TittleName />
+                   <TittleName/>
                 </Col>
 
             </Row>

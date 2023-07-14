@@ -8,9 +8,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Header } from "./Navigation";
 import { BodyForm } from "./Body";
 import { NavBar } from "./Navbar";
-import {Asientos} from "./Sit"
 
-Asientos();
+
+
 ReactDOM.render(
   <>
     <Header />

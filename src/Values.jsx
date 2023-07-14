@@ -3,14 +3,12 @@ import React from 'react';
 import Image from 'react-bootstrap/Image';
 import bgimg1 from "./img/backgroundferry.jpg";
 
-
 export function TittleName() {
   const Name = "Naviera del Sur";
   return (
-    <h1 style={{ position: 'fixed', margin: '2rem' }}>{Name}</h1>
+    <h1 style={{margin: '2rem' }}>{Name}</h1>
   );
 }
-
 
 export function SubTittle() {
   const Titlepage = 'Naviera del sur'
@@ -23,12 +21,16 @@ export function SubTittle() {
   );
 }
 
-export function Dest(){
-  const DestinoV ='Seleccione Destino'
-  return(<><h3>{DestinoV}</h3></>);
+export function Dest() {
+  const DestinoV = 'Seleccione Destino'
+  return (
+    <h3>{DestinoV}</h3>
+  );
 }
-export function Origen(){
-  const OrigenV ='Seleccione Origen'
- 
-  return(<><h3>{OrigenV}</h3></>);
+
+export function Origen() {
+  const OrigenV = 'Seleccione Origen'
+  return (
+    <h3>{OrigenV}</h3>
+  );
 }

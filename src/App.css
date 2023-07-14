@@ -16,11 +16,8 @@
 /*.bg-back{*/
 body{
   background-image: url(img/backgroundferry.jpg);
-  /**overflow-y: hidden;*/
   background-position: center;
   background-attachment: fixed;
   height: 90%;
   width: 100%;
 }
-
-
