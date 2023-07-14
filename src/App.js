@@ -47,3 +47,11 @@ function BusquedaN(){
     </>
   );
 }
+
+function Vertodo(){
+  return(
+    <>
+    
+    </>
+  );
+}
