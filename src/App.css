@@ -1,0 +1,26 @@
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/*body {
+  background-image: linear-gradient(280deg, rgb(165, 180, 252), rgb(161, 158, 230));
+  background-size: cover;
+  background-position: center;
+  overflow-y:hidden;
+}*/
+
+/*.bg-back{*/
+body{
+  background-image: url(img/backgroundferry.jpg);
+  /**overflow-y: hidden;*/
+  background-position: center;
+  background-attachment: fixed;
+  height: 90%;
+  width: 100%;
+}
+
+
