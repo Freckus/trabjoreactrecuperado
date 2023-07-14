@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { SubTittle, Dest, Origen } from "./Values";
 import { Col, Container, Row } from "react-bootstrap";
 //import { Asientos } from "./Sit";
@@ -9,44 +9,175 @@ export function getRandomNumber() {
   return Math.floor(Math.random() * 10000) + 1;
 }
 
-export function Basic() {
-  var Asientos = [];
-  for (var i = 0; i < 7; i++) {
-    var fila = [];
-    for (var j = 1; j <= 6; j++) {
-      fila.push(j);
-    }
-    Asientos.push({
-      letra: String.fromCharCode(97 + i),
-      numeros: fila,
+export function SeleDest() {
+    const [formData, setFormData] = useState({
+      id: getRandomNumber(),
+      origen: "",
+      destino: "",
+      horario: "",
     });
+    const arreDest={}
+    const [origen, setOrigen] = useState("");
+    const [destino, setDestino] = useState("");
+    const [horario, setHorario] = useState("");
+    const [opcionesDestino, setOpcionesDestino] = useState([]);
+    const [opcionesHorario, setOpcionesHorario] = useState([]);
+  
+    let Viajes = [
+      {
+        origen: "Puerto Montt",
+        destino: ["Quellon", "Chaiten", "Puerto Cisnes"],
+        horario: ["06:00", "10:00", "14:00", "18:00"],
+      },
+      {
+        origen: "Chaiten",
+        destino: ["Puerto Montt", "Quellon", "Puerto Cisnes"],
+        horario: ["06:00", "10:00", "16:00"],
+      },
+      {
+        origen: "Quellon",
+        destino: ["Puerto Montt", "Chaiten", "Puerto Cisbes"],
+        horario: ["06:00", "10:00", "16:00"],
+      },
+      {
+        origen: "Puerto Cisnes",
+        destino: ["Chaiten", "Puerto Montt"],
+        horario: ["06:00", "18:00"],
+      },
+    ];
+  
+    const handleOrigenChange = (e) => {
+      const viajeSeleccionado = Viajes.find(
+        (viaje) => viaje.origen === e.target.value
+      );
+      setOrigen(e.target.value);
+      setDestino("");
+      setHorario("");
+      setOpcionesDestino(viajeSeleccionado?.destino || []);
+      setOpcionesHorario(viajeSeleccionado?.horario || []);
+      console.log("Origen seleccionado:", e.target.value);
+    };
+  
+    const handleDestinoChange = (e) => {
+      setDestino(e.target.value);
+      console.log("Destino seleccionado:", e.target.value);
+    };
+  
+    const handleHorarioChange = (e) => {
+      setHorario(e.target.value);
+      console.log("Horario seleccionado:", e.target.value);
+    };
+  
+    const handleAgregarClick = () => {
+      const seleccion = [formData.id, origen, destino, horario];
+      console.log("Selección actual:", seleccion);
+    };
+  
+    return (
+      <>
+        <Container>
+          <Row>
+            {/* ... */}
+            <Col sm={6}>
+              <Form.Select
+                aria-label="Default select example"
+                value={origen}
+                onChange={handleOrigenChange}
+              >
+                <option>Origen</option>
+                {Viajes.map((viaje, index) => (
+                  <option key={index} value={viaje.origen}>
+                    {viaje.origen}
+                  </option>
+                ))}
+              </Form.Select>
+              <br />
+              <Form.Select
+                aria-label="Default select example"
+                value={destino}
+                onChange={handleDestinoChange}
+              >
+                <option>Destino</option>
+                {opcionesDestino.map((destino, index) => (
+                  <option key={index} value={destino}>
+                    {destino}
+                  </option>
+                ))}
+              </Form.Select>
+            </Col>
+            <Col sm={6}>
+              <Form.Select
+                aria-label="Default select example"
+                value={horario}
+                onChange={handleHorarioChange}
+              >
+                <option>Salidas programadas</option>
+                {opcionesHorario.map((horario, index) => (
+                  <option key={index} value={horario}>
+                    {horario}
+                  </option>
+                ))}
+              </Form.Select>
+              <br />
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={handleAgregarClick}
+              >
+                Agregar
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+        <br />
+      </>
+    );
   }
-  const [formData, setFormData] = useState({
-    id: getRandomNumber(),
-    nombre: "",
-    apellidos: "",
-    edad: "",
-    telefono: "",
-    rut: "",
-    asiento: "",
-  });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
-
-  function handleClick(valor) {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      asiento: valor,
-    }));
-  }
-
+  export function Basic() {
+    var Asientos = [];
+    for (var i = 0; i < 7; i++) {
+      var fila = [];
+      for (var j = 1; j <= 6; j++) {
+        fila.push(j);
+      }
+      Asientos.push({
+        letra: String.fromCharCode(97 + i),
+        numeros: fila,
+      });
+    }
+    const [formData, setFormData] = useState(() => {
+      const storedData = localStorage.getItem("formData");
+      return storedData ? JSON.parse(storedData) : {
+        id: getRandomNumber(),
+        nombre: "",
+        apellidos: "",
+        edad: "",
+        telefono: "",
+        rut: "",
+        asiento: "",
+      };
+    });
+  
+    useEffect(() => {
+      localStorage.setItem("formData", JSON.stringify(formData));
+    }, [formData]);
+  
+    const handleChange = (e) => {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(formData);
+    };
+  
+    function handleClick(valor) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        asiento: valor,
+      }));
+    }
   return (
     <Row>
       <Col sm={6}>
@@ -142,128 +273,6 @@ export function Basic() {
   );
 }
 
-export function SeleDest() {
-  const [formData, setFormData] = useState({
-    id: getRandomNumber(),
-    origen: "",
-    destino: "",
-    horario: "",
-  });
-  const [origen, setOrigen] = useState("");
-  const [destino, setDestino] = useState("");
-  const [horario, setHorario] = useState("");
-  const [opcionesDestino, setOpcionesDestino] = useState([]);
-  const [opcionesHorario, setOpcionesHorario] = useState([]);
 
-  let Viajes = [
-    {
-      origen: "Puerto Montt",
-      destino: ["Quellon", "Chaiten", "Puerto Cisnes"],
-      horario: ["06:00", "10:00", "14:00", "18:00"],
-    },
-    {
-      origen: "Chaiten",
-      destino: ["Puerto Montt", "Quellon", "Puerto Cisnes"],
-      horario: ["06:00", "10:00", "16:00"],
-    },
-    {
-      origen: "Quellon",
-      destino: ["Puerto Montt", "Chaiten", "Puerto Cisbes"],
-      horario: ["06:00", "10:00", "16:00"],
-    },
-    {
-      origen: "Puerto Cisnes",
-      destino: ["Chaiten", "Puerto Montt"],
-      horario: ["06:00", "18:00"],
-    },
-  ];
 
-  const handleOrigenChange = (e) => {
-    const viajeSeleccionado = Viajes.find(
-      (viaje) => viaje.origen === e.target.value
-    );
-    setOrigen(e.target.value);
-    setDestino("");
-    setHorario("");
-    setOpcionesDestino(viajeSeleccionado?.destino || []);
-    setOpcionesHorario(viajeSeleccionado?.horario || []);
-    console.log("Origen seleccionado:", e.target.value);
-  };
 
-  const handleDestinoChange = (e) => {
-    setDestino(e.target.value);
-    console.log("Destino seleccionado:", e.target.value);
-  };
-
-  const handleHorarioChange = (e) => {
-    setHorario(e.target.value);
-    console.log("Horario seleccionado:", e.target.value);
-  };
-
-  const handleAgregarClick = () => {
-    const seleccion = [formData.id, origen, destino, horario];
-    console.log("Selección actual:", seleccion);
-  };
-
-  return (
-    <>
-      <Container>
-        <Row>
-          {/* ... */}
-          <Col sm={6}>
-            <Form.Select
-              aria-label="Default select example"
-              value={origen}
-              onChange={handleOrigenChange}
-            >
-              <option>Origen</option>
-              {Viajes.map((viaje, index) => (
-                <option key={index} value={viaje.origen}>
-                  {viaje.origen}
-                </option>
-              ))}
-            </Form.Select>
-            <br />
-            <Form.Select
-              aria-label="Default select example"
-              value={destino}
-              onChange={handleDestinoChange}
-            >
-              <option>Destino</option>
-              {opcionesDestino.map((destino, index) => (
-                <option key={index} value={destino}>
-                  {destino}
-                </option>
-              ))}
-            </Form.Select>
-          </Col>
-          <Col sm={6}>
-            <Form.Select
-              aria-label="Default select example"
-              value={horario}
-              onChange={handleHorarioChange}
-            >
-              <option>Salidas programadas</option>
-              {opcionesHorario.map((horario, index) => (
-                <option key={index} value={horario}>
-                  {horario}
-                </option>
-              ))}
-            </Form.Select>
-            <br />
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={handleAgregarClick}
-            >
-              Agregar
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-      <br />
-    </>
-  );
-}
-
-const boleto = () => {};
